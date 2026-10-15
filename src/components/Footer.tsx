@@ -32,16 +32,16 @@ export default function Footer() {
                 Home
               </Link>
 
-              <Link href="/#about" className="hover:text-white">
+              <Link href="/about" className="hover:text-white">
                 About Us
               </Link>
 
-              <Link href="/#services" className="hover:text-white">
+              <Link href="/services" className="hover:text-white">
                 Our Services
               </Link>
 
               <Link
-                href="/#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 hover:text-white"
               >
                 Contact Us
