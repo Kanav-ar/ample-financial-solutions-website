@@ -12,6 +12,7 @@ import {
 const services = [
   {
     number: "01",
+    href: "/services/bank-finance",
     title: "Credit & Banking Advisory",
     description:
       "Support with financial documentation, CMA data and bank-finance proposals may be coordinated through independent banking advisors. All credit decisions rest solely with the relevant bank.",
@@ -19,6 +20,7 @@ const services = [
   },
   {
     number: "02",
+    href: "/services/ibc-nclt",
     title: "IBC & NCLT Consultancy",
     description:
       "Enquiries concerning insolvency, restructuring and resolution may be directed to appropriately qualified legal and insolvency professionals, subject to applicable eligibility and separate engagement.",
@@ -26,6 +28,7 @@ const services = [
   },
   {
     number: "03",
+    href: "/services/capital-markets",
     title: "Capital Markets & Fundraising",
     description:
       "Enquiries about IPOs, listing and capital-market fundraising may be referred to appropriately registered merchant bankers, where applicable. The relevant provider determines the scope of its engagement.",
@@ -33,6 +36,7 @@ const services = [
   },
   {
     number: "04",
+    href: "/services/taxation",
     title: "Direct & Indirect Taxation",
     description:
       "Taxation enquiries may be directed to the appropriate CA firm or qualified professional for direct and indirect tax matters, subject to the relevant location and engagement arrangements.",
