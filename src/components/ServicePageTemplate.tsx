@@ -146,7 +146,6 @@ export default function ServicePageTemplate({
         </div>
       </section>
 
-      {/* Call to action */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
           <div className="rounded-2xl bg-[#172b42] px-6 py-10 text-white sm:px-10 sm:py-12 lg:flex lg:items-center lg:justify-between lg:gap-10">
