@@ -12,11 +12,35 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+
 export const metadata: Metadata = {
   title: "About Us",
+
   description:
-    "Meet the founder and learn about the professional network supporting Ample Financial Solutions.",
+    "Learn about Ample Financial Solutions, its founder, and its network " +
+    "of professionals supporting business finance, insolvency and " +
+    "restructuring, capital markets, and taxation requirements.",
+
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Ample Financial Solutions",
+    title: "About Us | Ample Financial Solutions",
+    description:
+      "Meet the founder and learn about the professional network " +
+      "supporting Ample Financial Solutions across business finance, " +
+      "IBC and NCLT matters, capital markets, and taxation.",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "About Us | Ample Financial Solutions",
+    description:
+      "Learn about our founder, approach, and network of professionals " +
+      "supporting business and financial advisory enquiries.",
+  },
 };
+
 
 const principles = [
   {

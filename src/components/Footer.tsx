@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { Landmark, ArrowUpRight } from "lucide-react";
+import { cacheLife } from "next/cache";
 
-export default function Footer() {
+async function getCurrentYear() {
+  "use cache";
+
+  cacheLife("days");
+
+  return new Date().getFullYear();
+}
+
+export default async function Footer() {
+  const currentYear = await getCurrentYear();
   return (
     <footer className="bg-[#122438] text-white">
       <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
@@ -60,8 +70,8 @@ export default function Footer() {
             resolution, is guaranteed.
           </p>
 
-          <p className="mt-2">
-            © {new Date().getFullYear()} Ample Financial Solutions . All rights
+          <p className="mt-4">
+            © {currentYear} Ample Financial Solutions. All rights
             reserved.
           </p>
         </div>

@@ -1,4 +1,4 @@
-
+import { getContactRateLimiter } from "@/lib/rate-limit";
 import { Resend } from "resend";
 
 const SERVICE_LABELS = {
@@ -6,6 +6,7 @@ const SERVICE_LABELS = {
   "ibc-nclt": "IBC & NCLT Consultancy",
   "capital-markets": "Capital Markets & Fundraising",
   taxation: "Direct & Indirect Taxation",
+  compliance: "Compliance & Regulatory Advisory",
   general: "General Enquiry",
 } as const;
 
@@ -31,6 +32,32 @@ function jsonMessage(message: string, status: number) {
   return Response.json({ message }, { status });
 }
 
+function getClientIp(request: Request): string | null {
+  const headers = request.headers;
+
+  // Vercel deployment
+  if (process.env.VERCEL) {
+    const ip =
+      headers.get("x-vercel-forwarded-for") ?? headers.get("x-forwarded-for");
+
+    return ip?.split(",")[0]?.trim() || null;
+  }
+
+  // Netlify deployment
+  const netlifyIp = headers.get("x-nf-client-connection-ip");
+
+  if (netlifyIp) {
+    return netlifyIp.trim();
+  }
+
+  // Local development only
+  if (process.env.NODE_ENV !== "production") {
+    return "local-development";
+  }
+
+  return null;
+}
+
 export async function POST(request: Request) {
   const contentLength = request.headers.get("content-length");
 
@@ -39,6 +66,56 @@ export async function POST(request: Request) {
   }
 
   let payload: unknown;
+
+  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!upstashUrl || !upstashToken) {
+    console.error("Upstash Redis environment variables are missing.");
+
+    return Response.json(
+      { message: "The contact service is temporarily unavailable." },
+      { status: 503 },
+    );
+  }
+
+  const clientIp = getClientIp(request);
+
+  if (!clientIp) {
+    console.error("Could not determine the client IP for rate limiting.");
+
+    return Response.json(
+      { message: "The contact service is temporarily unavailable." },
+      { status: 503 },
+    );
+  }
+
+  try {
+    const { success, reset } = await getContactRateLimiter().limit(clientIp);
+
+    if (!success) {
+      const retryAfterSeconds = Math.max(
+        1,
+        Math.ceil((reset - Date.now()) / 1000),
+      );
+
+      return Response.json(
+        {
+          message:
+            "Too many requests. Please wait a few minutes before submitting another enquiry.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(retryAfterSeconds),
+          },
+        },
+      );
+    }
+  } catch (error) {
+    // Preserve enquiries during a temporary Redis connection failure.
+    console.error("Contact rate-limit check failed:", error);
+  }
 
   try {
     payload = await request.json();
@@ -69,16 +146,14 @@ export async function POST(request: Request) {
   const phone = getString(data.phone);
   const service = getString(data.service);
   const message = getString(data.message);
+  const introduction = getString(data.introduction);
   const privacyConsent = data.privacyConsent === true;
 
   if (name.length < 2 || name.length > 100) {
     return jsonMessage("Please enter a valid name.", 400);
   }
 
-  if (
-    email.length > 254 ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  ) {
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return jsonMessage("Please enter a valid email address.", 400);
   }
 
@@ -93,16 +168,15 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!privacyConsent) {
-    return jsonMessage(
-      "Please acknowledge the information-use notice.",
-      400,
-    );
+  if (introduction.length > 1000) {
+    return jsonMessage("Introduction must be 1000 characters or fewer.", 400);
   }
 
-  if (
-    !Object.prototype.hasOwnProperty.call(SERVICE_LABELS, service)
-  ) {
+  if (!privacyConsent) {
+    return jsonMessage("Please acknowledge the information-use notice.", 400);
+  }
+
+  if (!Object.prototype.hasOwnProperty.call(SERVICE_LABELS, service)) {
     return jsonMessage("Please select a valid service.", 400);
   }
 
@@ -119,8 +193,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const serviceLabel =
-    SERVICE_LABELS[service as keyof typeof SERVICE_LABELS];
+  const serviceLabel = SERVICE_LABELS[service as keyof typeof SERVICE_LABELS];
 
   // Escape visitor-controlled values before inserting them into HTML.
   const safeName = escapeHtml(name);
