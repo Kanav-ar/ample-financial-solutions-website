@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { ArrowRight, LoaderCircle, X } from "lucide-react";
 
@@ -49,59 +48,66 @@ function validateField(
   field: FieldName,
   values: FormValues,
 ): string | undefined {
-  const value = values[field];
-
   switch (field) {
-    case "name":
-      if (!value.trim()) return "Please enter your full name.";
-      if (value.trim().length < 2)
+    case "name": {
+      const value = values.name.trim();
+      if (!value) return "Please enter your full name.";
+      if (value.length < 2) {
         return "Your name must contain at least 2 characters.";
-      if (value.length > 100)
+      }
+      if (value.length > 100) {
         return "Your name cannot exceed 100 characters.";
-      break;
+      }
+      return undefined;
+    }
 
-    case "email":
-      if (!value.trim()) return "Please enter your email address.";
-      if (value.length > 254)
-        return "Your email address is too long.";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()))
+    case "email": {
+      const value = values.email.trim();
+      if (!value) return "Please enter your email address.";
+      if (value.length > 254) return "Your email address is too long.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         return "Please enter a valid email address.";
-      break;
+      }
+      return undefined;
+    }
 
     case "company":
-      if (value.length > 120)
+      if (values.company.length > 120) {
         return "Company name cannot exceed 120 characters.";
-      break;
+      }
+      return undefined;
 
     case "phone":
-      if (value.length > 30)
+      if (values.phone.length > 30) {
         return "Phone number cannot exceed 30 characters.";
-      break;
+      }
+      return undefined;
 
     case "service":
-      if (!value) return "Please select a service.";
-      if (!serviceOptions.some((option) => option.value === value))
+      if (!values.service) return "Please select a service.";
+      if (!serviceOptions.some((option) => option.value === values.service)) {
         return "Please select a valid service.";
-      break;
+      }
+      return undefined;
 
-    case "message":
-      if (!value.trim()) return "Please describe your requirement.";
-      if (value.trim().length < 10)
-        return "Please enter at least 10 characters.";
-      if (value.length > 3000)
+    case "message": {
+      const value = values.message.trim();
+      if (!value) return "Please describe your requirement.";
+      if (value.length < 10) return "Please enter at least 10 characters.";
+      if (value.length > 3000) {
         return "Your message cannot exceed 3000 characters.";
-      break;
+      }
+      return undefined;
+    }
 
     case "privacyConsent":
-      if (!value)
-        return "Please acknowledge the information-use notice.";
-      break;
+      return values.privacyConsent
+        ? undefined
+        : "Please acknowledge the information-use notice.";
 
-    default:
-      break;
+    case "website":
+      return undefined;
   }
-
-  return undefined;
 }
 
 function validateForm(values: FormValues): FormErrors {
@@ -127,7 +133,6 @@ function validateForm(values: FormValues): FormErrors {
 
 export default function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<
     Partial<Record<FieldName, boolean>>
   >({});
@@ -139,9 +144,7 @@ export default function ContactForm() {
     if (!toast) return;
 
     const timer = window.setTimeout(() => {
-      setToast((current) =>
-        current?.id === toast.id ? null : current,
-      );
+      setToast((current) => (current?.id === toast.id ? null : current));
     }, 5000);
 
     return () => window.clearTimeout(timer);
@@ -151,35 +154,20 @@ export default function ContactForm() {
     setToast({ type, message, id: Date.now() });
   }
 
-  function updateField(field: FieldName, value: string | boolean) {
-    const nextValues = { ...values, [field]: value } as FormValues;
-
-    setValues(nextValues);
-
-    if (touched[field] || submitted) {
-      setErrors((current) => ({
-        ...current,
-        [field]: validateField(field, nextValues),
-      }));
-    }
+  function updateField<K extends FieldName>(field: K, value: FormValues[K]) {
+    setValues((current) => ({ ...current, [field]: value }));
   }
 
   function markTouched(field: FieldName) {
     setTouched((current) => ({ ...current, [field]: true }));
-    setErrors((current) => ({
-      ...current,
-      [field]: validateField(field, values),
-    }));
   }
 
   const currentErrors = validateForm(values);
-
   const isFormValid = Object.keys(currentErrors).length === 0;
-
   const canSubmit = isFormValid && status !== "submitting";
 
   const inputClassName =
-    "mt-2 w-full rounded-lg border bg-white px-4 py-3 text-sm text-[#172b42] outline-none transition focus:ring-2";
+    "mt-2 w-full rounded-lg border bg-white px-4 py-3 text-sm text-[#172b42] outline-none transition focus:ring-2 disabled:cursor-wait disabled:bg-slate-100";
 
   function fieldClass(field: FieldName) {
     const showError = Boolean(
@@ -197,7 +185,6 @@ export default function ContactForm() {
     if (!(touched[field] || submitted)) return null;
 
     const error = currentErrors[field];
-
     if (!error) return null;
 
     return (
@@ -209,11 +196,22 @@ export default function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting") return;
+
     setSubmitted(true);
 
-    const validationErrors = validateForm(values);
-    setErrors(validationErrors);
+    const submittedValues: FormValues = {
+      ...values,
+      name: values.name.trim(),
+      email: values.email.trim(),
+      company: values.company.trim(),
+      phone: values.phone.trim(),
+      service: values.service.trim(),
+      message: values.message.trim(),
+    };
+    setValues(submittedValues);
 
+    const validationErrors = validateForm(submittedValues);
     if (Object.keys(validationErrors).length > 0) {
       showToast(
         "error",
@@ -228,28 +226,35 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(submittedValues),
       });
 
-      const result = (await response.json()) as {
-        message?: string;
+      // Some error responses may not contain valid JSON.
+      const result = (await response.json().catch(() => ({}))) as {
+        message?: unknown;
+        error?: unknown;
       };
+
+      const serverMessage =
+        typeof result.message === "string"
+          ? result.message
+          : typeof result.error === "string"
+            ? result.error
+            : undefined;
 
       if (!response.ok) {
         throw new Error(
-          result.message ?? "Your enquiry could not be submitted.",
+          serverMessage ?? "Your enquiry could not be submitted. Please try again.",
         );
       }
 
       setValues(initialValues);
-      setErrors({});
       setTouched({});
       setSubmitted(false);
 
       showToast(
         "success",
-        result.message ??
-          "Your enquiry has been submitted successfully.",
+        serverMessage ?? "Your enquiry has been submitted successfully.",
       );
     } catch (error) {
       showToast(
@@ -263,9 +268,10 @@ export default function ContactForm() {
     }
   }
 
+  const isSubmitting = status === "submitting";
+
   return (
     <>
-    
       {toast && (
         <div
           className="fixed right-4 top-4 z-[100] w-[calc(100%-2rem)] max-w-md sm:right-6 sm:top-6"
@@ -321,19 +327,24 @@ export default function ContactForm() {
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="name" className="text-sm font-medium text-[#172b42]">
-              Full name *
+              Full name <span aria-hidden="true">*</span>
             </label>
             <input
               id="name"
               name="name"
               value={values.name}
-              onChange={(e) => updateField("name", e.target.value)}
+              onChange={(event) => updateField("name", event.target.value)}
               onBlur={() => markTouched("name")}
+              disabled={isSubmitting}
               required
               maxLength={100}
               autoComplete="name"
               aria-invalid={Boolean((touched.name || submitted) && currentErrors.name)}
-              aria-describedby={currentErrors.name && (touched.name || submitted) ? "name-error" : undefined}
+              aria-describedby={
+                currentErrors.name && (touched.name || submitted)
+                  ? "name-error"
+                  : undefined
+              }
               className={fieldClass("name")}
               placeholder="Your full name"
             />
@@ -342,20 +353,25 @@ export default function ContactForm() {
 
           <div>
             <label htmlFor="email" className="text-sm font-medium text-[#172b42]">
-              Email address *
+              Email address <span aria-hidden="true">*</span>
             </label>
             <input
               id="email"
               name="email"
               type="email"
               value={values.email}
-              onChange={(e) => updateField("email", e.target.value)}
+              onChange={(event) => updateField("email", event.target.value)}
               onBlur={() => markTouched("email")}
+              disabled={isSubmitting}
               required
               maxLength={254}
               autoComplete="email"
               aria-invalid={Boolean((touched.email || submitted) && currentErrors.email)}
-              aria-describedby={currentErrors.email && (touched.email || submitted) ? "email-error" : undefined}
+              aria-describedby={
+                currentErrors.email && (touched.email || submitted)
+                  ? "email-error"
+                  : undefined
+              }
               className={fieldClass("email")}
               placeholder="you@company.com"
             />
@@ -370,12 +386,17 @@ export default function ContactForm() {
               id="company"
               name="company"
               value={values.company}
-              onChange={(e) => updateField("company", e.target.value)}
+              onChange={(event) => updateField("company", event.target.value)}
               onBlur={() => markTouched("company")}
+              disabled={isSubmitting}
               maxLength={120}
               autoComplete="organization"
               aria-invalid={Boolean((touched.company || submitted) && currentErrors.company)}
-              aria-describedby={currentErrors.company && (touched.company || submitted) ? "company-error" : undefined}
+              aria-describedby={
+                currentErrors.company && (touched.company || submitted)
+                  ? "company-error"
+                  : undefined
+              }
               className={fieldClass("company")}
               placeholder="Your company (optional)"
             />
@@ -391,12 +412,17 @@ export default function ContactForm() {
               name="phone"
               type="tel"
               value={values.phone}
-              onChange={(e) => updateField("phone", e.target.value)}
+              onChange={(event) => updateField("phone", event.target.value)}
               onBlur={() => markTouched("phone")}
+              disabled={isSubmitting}
               maxLength={30}
               autoComplete="tel"
               aria-invalid={Boolean((touched.phone || submitted) && currentErrors.phone)}
-              aria-describedby={currentErrors.phone && (touched.phone || submitted) ? "phone-error" : undefined}
+              aria-describedby={
+                currentErrors.phone && (touched.phone || submitted)
+                  ? "phone-error"
+                  : undefined
+              }
               className={fieldClass("phone")}
               placeholder="Your phone number (optional)"
             />
@@ -405,17 +431,22 @@ export default function ContactForm() {
 
           <div className="sm:col-span-2">
             <label htmlFor="service" className="text-sm font-medium text-[#172b42]">
-              Service required *
+              Service required <span aria-hidden="true">*</span>
             </label>
             <select
               id="service"
               name="service"
               value={values.service}
-              onChange={(e) => updateField("service", e.target.value)}
+              onChange={(event) => updateField("service", event.target.value)}
               onBlur={() => markTouched("service")}
+              disabled={isSubmitting}
               required
               aria-invalid={Boolean((touched.service || submitted) && currentErrors.service)}
-              aria-describedby={currentErrors.service && (touched.service || submitted) ? "service-error" : undefined}
+              aria-describedby={
+                currentErrors.service && (touched.service || submitted)
+                  ? "service-error"
+                  : undefined
+              }
               className={fieldClass("service")}
             >
               <option value="">Select a service</option>
@@ -431,53 +462,29 @@ export default function ContactForm() {
           <div className="sm:col-span-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="message" className="text-sm font-medium text-[#172b42]">
-              Your Introduction
-                </label>
-              <span className="text-xs text-slate-500">
-                {values.message.length}/300
-              </span>
-            </div>
-
-            <textarea
-              id="message"
-              name="introduction"
-              value={values.message}
-              onChange={(e) => updateField("message", e.target.value)}
-              onBlur={() => markTouched("message")}
-              required
-              minLength={10}
-              maxLength={300}
-              rows={5}
-              aria-invalid={Boolean((touched.message || submitted) && currentErrors.message)}
-              aria-describedby={currentErrors.message && (touched.message || submitted) ? "message-error" : undefined}
-              placeholder="Please give a brief introduction."
-              className={`${fieldClass("message")} resize-y`}
-            />
-            {fieldError("message")}
-          </div>
-
-          <div className="sm:col-span-2">
-            <div className="flex items-center justify-between gap-3">
-              <label htmlFor="message" className="text-sm font-medium text-[#172b42]">
-                How can we help? *
+                How can we help? <span aria-hidden="true">*</span>
               </label>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-slate-500" aria-live="polite">
                 {values.message.length}/3000
               </span>
             </div>
-
             <textarea
               id="message"
               name="message"
               value={values.message}
-              onChange={(e) => updateField("message", e.target.value)}
+              onChange={(event) => updateField("message", event.target.value)}
               onBlur={() => markTouched("message")}
+              disabled={isSubmitting}
               required
               minLength={10}
               maxLength={3000}
               rows={5}
               aria-invalid={Boolean((touched.message || submitted) && currentErrors.message)}
-              aria-describedby={currentErrors.message && (touched.message || submitted) ? "message-error" : undefined}
+              aria-describedby={
+                currentErrors.message && (touched.message || submitted)
+                  ? "message-error"
+                  : undefined
+              }
               placeholder="Briefly describe your requirement. Do not include confidential financial or identity documents."
               className={`${fieldClass("message")} resize-y`}
             />
@@ -497,27 +504,39 @@ export default function ContactForm() {
             tabIndex={-1}
             autoComplete="off"
             value={values.website}
-            onChange={(e) => updateField("website", e.target.value)}
+            onChange={(event) => updateField("website", event.target.value)}
           />
         </div>
 
         <div className="mt-5">
-          <label className="flex items-start gap-3 text-sm leading-6 text-slate-600">
+          <label
+            htmlFor="privacyConsent"
+            className="flex items-start gap-3 text-sm leading-6 text-slate-600"
+          >
             <input
+              id="privacyConsent"
               name="privacyConsent"
               type="checkbox"
               checked={values.privacyConsent}
-              onChange={(e) => updateField("privacyConsent", e.target.checked)}
+              onChange={(event) => updateField("privacyConsent", event.target.checked)}
               onBlur={() => markTouched("privacyConsent")}
+              disabled={isSubmitting}
               required
-              aria-invalid={Boolean((touched.privacyConsent || submitted) && currentErrors.privacyConsent)}
-              aria-describedby={currentErrors.privacyConsent && (touched.privacyConsent || submitted) ? "privacyConsent-error" : undefined}
+              aria-invalid={Boolean(
+                (touched.privacyConsent || submitted) && currentErrors.privacyConsent,
+              )}
+              aria-describedby={
+                currentErrors.privacyConsent &&
+                (touched.privacyConsent || submitted)
+                  ? "privacyConsent-error"
+                  : undefined
+              }
               className="mt-1 h-4 w-4 shrink-0 accent-[#172b42]"
             />
             <span>
-              I acknowledge that my information will be used to respond to
-              this enquiry. Please do not submit confidential documents
-              through this form.
+              I acknowledge that my information will be used to respond to this
+              enquiry. Please do not submit confidential documents through this
+              form.
             </span>
           </label>
           {fieldError("privacyConsent")}
@@ -528,7 +547,7 @@ export default function ContactForm() {
           disabled={!canSubmit}
           className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#172b42] px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#263f59] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-80"
         >
-          {status === "submitting" ? (
+          {isSubmitting ? (
             <>
               <LoaderCircle className="animate-spin" size={17} />
               Submitting...
