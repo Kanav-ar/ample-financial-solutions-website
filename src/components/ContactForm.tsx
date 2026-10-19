@@ -11,6 +11,7 @@ type FormValues = {
   phone: string;
   service: string;
   message: string;
+  introduction: string;
   privacyConsent: boolean;
   website: string;
 };
@@ -32,6 +33,7 @@ const initialValues: FormValues = {
   phone: "",
   service: "",
   message: "",
+  introduction: "",
   privacyConsent: false,
   website: "",
 };
@@ -100,6 +102,12 @@ function validateField(
       return undefined;
     }
 
+    case "introduction":
+      const value = values.introduction.trim();
+      if (value.length > 1000)
+        return "Introduction cannot exceed 1000 characters.";
+      break;
+
     case "privacyConsent":
       return values.privacyConsent
         ? undefined
@@ -118,6 +126,7 @@ function validateForm(values: FormValues): FormErrors {
     "phone",
     "service",
     "message",
+    "introduction",
     "privacyConsent",
   ];
 
@@ -133,9 +142,9 @@ function validateForm(values: FormValues): FormErrors {
 
 export default function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
-  const [touched, setTouched] = useState<
-    Partial<Record<FieldName, boolean>>
-  >({});
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>(
+    {},
+  );
   const [submitted, setSubmitted] = useState(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [toast, setToast] = useState<Toast | null>(null);
@@ -244,7 +253,8 @@ export default function ContactForm() {
 
       if (!response.ok) {
         throw new Error(
-          serverMessage ?? "Your enquiry could not be submitted. Please try again.",
+          serverMessage ??
+            "Your enquiry could not be submitted. Please try again.",
         );
       }
 
@@ -326,7 +336,10 @@ export default function ContactForm() {
       >
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label htmlFor="name" className="text-sm font-medium text-[#172b42]">
+            <label
+              htmlFor="name"
+              className="text-sm font-medium text-[#172b42]"
+            >
               Full name <span aria-hidden="true">*</span>
             </label>
             <input
@@ -339,7 +352,9 @@ export default function ContactForm() {
               required
               maxLength={100}
               autoComplete="name"
-              aria-invalid={Boolean((touched.name || submitted) && currentErrors.name)}
+              aria-invalid={Boolean(
+                (touched.name || submitted) && currentErrors.name,
+              )}
               aria-describedby={
                 currentErrors.name && (touched.name || submitted)
                   ? "name-error"
@@ -352,7 +367,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="email" className="text-sm font-medium text-[#172b42]">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-[#172b42]"
+            >
               Email address <span aria-hidden="true">*</span>
             </label>
             <input
@@ -366,7 +384,9 @@ export default function ContactForm() {
               required
               maxLength={254}
               autoComplete="email"
-              aria-invalid={Boolean((touched.email || submitted) && currentErrors.email)}
+              aria-invalid={Boolean(
+                (touched.email || submitted) && currentErrors.email,
+              )}
               aria-describedby={
                 currentErrors.email && (touched.email || submitted)
                   ? "email-error"
@@ -379,7 +399,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="company" className="text-sm font-medium text-[#172b42]">
+            <label
+              htmlFor="company"
+              className="text-sm font-medium text-[#172b42]"
+            >
               Company name
             </label>
             <input
@@ -391,7 +414,9 @@ export default function ContactForm() {
               disabled={isSubmitting}
               maxLength={120}
               autoComplete="organization"
-              aria-invalid={Boolean((touched.company || submitted) && currentErrors.company)}
+              aria-invalid={Boolean(
+                (touched.company || submitted) && currentErrors.company,
+              )}
               aria-describedby={
                 currentErrors.company && (touched.company || submitted)
                   ? "company-error"
@@ -404,7 +429,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="phone" className="text-sm font-medium text-[#172b42]">
+            <label
+              htmlFor="phone"
+              className="text-sm font-medium text-[#172b42]"
+            >
               Phone number
             </label>
             <input
@@ -417,7 +445,9 @@ export default function ContactForm() {
               disabled={isSubmitting}
               maxLength={30}
               autoComplete="tel"
-              aria-invalid={Boolean((touched.phone || submitted) && currentErrors.phone)}
+              aria-invalid={Boolean(
+                (touched.phone || submitted) && currentErrors.phone,
+              )}
               aria-describedby={
                 currentErrors.phone && (touched.phone || submitted)
                   ? "phone-error"
@@ -430,7 +460,10 @@ export default function ContactForm() {
           </div>
 
           <div className="sm:col-span-2">
-            <label htmlFor="service" className="text-sm font-medium text-[#172b42]">
+            <label
+              htmlFor="service"
+              className="text-sm font-medium text-[#172b42]"
+            >
               Service required <span aria-hidden="true">*</span>
             </label>
             <select
@@ -441,7 +474,9 @@ export default function ContactForm() {
               onBlur={() => markTouched("service")}
               disabled={isSubmitting}
               required
-              aria-invalid={Boolean((touched.service || submitted) && currentErrors.service)}
+              aria-invalid={Boolean(
+                (touched.service || submitted) && currentErrors.service,
+              )}
               aria-describedby={
                 currentErrors.service && (touched.service || submitted)
                   ? "service-error"
@@ -461,7 +496,50 @@ export default function ContactForm() {
 
           <div className="sm:col-span-2">
             <div className="flex items-center justify-between gap-3">
-              <label htmlFor="message" className="text-sm font-medium text-[#172b42]">
+              <label
+                htmlFor="introduction"
+                className="text-sm font-medium text-[#172b42]"
+              >
+                Introduction
+                <span className="ml-1 text-slate-400">(Optional)</span>
+              </label>
+
+              <span className="text-xs text-slate-500">
+                {values.introduction.length}/1000
+              </span>
+            </div>
+
+            <textarea
+              id="introduction"
+              name="introduction"
+              value={values.introduction}
+              onChange={(e) => updateField("introduction", e.target.value)}
+              onBlur={() => markTouched("introduction")}
+              maxLength={1000}
+              rows={4}
+              aria-invalid={Boolean(
+                (touched.introduction || submitted) &&
+                currentErrors.introduction,
+              )}
+              aria-describedby={
+                currentErrors.introduction &&
+                (touched.introduction || submitted)
+                  ? "introduction-error"
+                  : undefined
+              }
+              placeholder="Tell us briefly about yourself or your company, your business activities, and your background."
+              className={`${fieldClass("introduction")} resize-y`}
+            />
+
+            {fieldError("introduction")}
+          </div>
+
+          <div className="sm:col-span-2">
+            <div className="flex items-center justify-between gap-3">
+              <label
+                htmlFor="message"
+                className="text-sm font-medium text-[#172b42]"
+              >
                 How can we help? <span aria-hidden="true">*</span>
               </label>
               <span className="text-xs text-slate-500" aria-live="polite">
@@ -479,7 +557,9 @@ export default function ContactForm() {
               minLength={10}
               maxLength={3000}
               rows={5}
-              aria-invalid={Boolean((touched.message || submitted) && currentErrors.message)}
+              aria-invalid={Boolean(
+                (touched.message || submitted) && currentErrors.message,
+              )}
               aria-describedby={
                 currentErrors.message && (touched.message || submitted)
                   ? "message-error"
@@ -518,12 +598,15 @@ export default function ContactForm() {
               name="privacyConsent"
               type="checkbox"
               checked={values.privacyConsent}
-              onChange={(event) => updateField("privacyConsent", event.target.checked)}
+              onChange={(event) =>
+                updateField("privacyConsent", event.target.checked)
+              }
               onBlur={() => markTouched("privacyConsent")}
               disabled={isSubmitting}
               required
               aria-invalid={Boolean(
-                (touched.privacyConsent || submitted) && currentErrors.privacyConsent,
+                (touched.privacyConsent || submitted) &&
+                currentErrors.privacyConsent,
               )}
               aria-describedby={
                 currentErrors.privacyConsent &&
