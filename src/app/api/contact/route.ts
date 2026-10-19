@@ -201,6 +201,10 @@ export async function POST(request: Request) {
   const safeCompany = escapeHtml(company || "Not provided");
   const safePhone = escapeHtml(phone || "Not provided");
   const safeMessage = escapeHtml(message).replace(/\r\n|\r|\n/g, "<br>");
+  const safeIntroduction = escapeHtml(introduction || "Not provided").replace(
+    /\r\n|\r|\n/g,
+    "<br>",
+  );
 
   const safeService = escapeHtml(serviceLabel);
   const receivedAt = new Date().toUTCString();
@@ -289,7 +293,16 @@ export async function POST(request: Request) {
                     </table>
                   </td>
                 </tr>
-
+                <tr>
+                  <td style="padding:16px 32px 8px;">
+                    <h2 style="margin:0 0 12px;color:#172b42;font-size:17px;">
+                      Introduction
+                    </h2>
+                    <div style="padding:18px;background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:14px;line-height:1.8;overflow-wrap:anywhere;">
+                      ${safeIntroduction}
+                    </div>
+                  </td>
+                </tr>
                 <tr>
                   <td style="padding:20px 32px 28px;">
                     <h2 style="margin:0 0 12px;color:#172b42;font-size:17px;">
