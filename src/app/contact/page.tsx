@@ -31,6 +31,7 @@ export default function ContactPage() {
 
       <section className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
+          
           <aside>
             <h2 className="text-2xl font-semibold text-[#172b42]">
               Before you submit

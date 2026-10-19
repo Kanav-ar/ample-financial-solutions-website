@@ -4,10 +4,40 @@ import {
   ArrowUpRight,
   Calculator,
   CheckCircle2,
+  CheckLine,
   Landmark,
   Scale,
   TrendingUp,
 } from "lucide-react";
+
+const areas = [
+  {
+    title: "Banking",
+    description:
+      "Credit facilities and loans at best rates supported by bankers",
+    icon: Landmark,
+  },
+  {
+    title: "Listing on SME Exchange",
+    description: "Min IPO Exp managed by leading merchant bankers",
+    icon: Scale,
+  },
+  {
+    title: "IBC Consultancy",
+    description: "By leading experienced IPs & Ex-NCLT Members",
+    icon: TrendingUp,
+  },
+  {
+    title: "Taxation",
+    description: "Direct & Indirect by leading CA firms",
+    icon: Calculator,
+  },
+  {
+    title: "Compliance",
+    description: "Company Law matters including SEBI, IBC & Taxation",
+    icon: CheckLine,
+  },
+];
 
 const services = [
   {
@@ -64,7 +94,8 @@ export default function HomePage() {
             </p>
 
             <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Connect with the right expertise for your business decisions.{" "}
+              Financial Decisions in Business - Connect with Right
+              Professionals{" "}
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
@@ -76,7 +107,7 @@ export default function HomePage() {
 
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
-                href="#services"
+                href="/services"
                 className="inline-flex items-center gap-2 rounded-lg bg-[#e3c797] px-5 py-3.5 text-sm font-semibold text-[#172b42] transition-colors hover:bg-[#f0d9ae]"
               >
                 Explore Our Services
@@ -84,7 +115,7 @@ export default function HomePage() {
               </Link>
 
               <Link
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3.5 text-sm font-medium transition-colors hover:bg-white/10"
               >
                 Discuss Your Requirement
@@ -94,17 +125,17 @@ export default function HomePage() {
           </div>
 
           <div className="rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e3c797]">
-              Areas of expertise
+            <p className="text-lg font-bold uppercase tracking-[0.2em] text-[#e3c797]">
+              Our expertise
             </p>
 
             <div className="mt-5 divide-y divide-white/10">
-              {services.map((service) => {
+              {areas.map((service) => {
                 const Icon = service.icon;
 
                 return (
                   <div
-                    key={service.number}
+                    key={service.title}
                     className="flex items-center gap-4 py-5"
                   >
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#e3c797]">
@@ -112,9 +143,9 @@ export default function HomePage() {
                     </span>
 
                     <div className="min-w-0">
-                      <p className="text-xs text-slate-400">{service.number}</p>
+                      <p className="text-xs text-slate-400">{service.title}</p>
                       <h2 className="mt-1 text-sm font-medium leading-6 sm:text-base">
-                        {service.title}
+                        {service.description}
                       </h2>
                     </div>
                   </div>

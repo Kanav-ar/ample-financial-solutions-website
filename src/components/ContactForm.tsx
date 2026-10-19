@@ -265,7 +265,7 @@ export default function ContactForm() {
 
   return (
     <>
-      {/* Screen-level notification */}
+    
       {toast && (
         <div
           className="fixed right-4 top-4 z-[100] w-[calc(100%-2rem)] max-w-md sm:right-6 sm:top-6"
@@ -431,6 +431,34 @@ export default function ContactForm() {
           <div className="sm:col-span-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="message" className="text-sm font-medium text-[#172b42]">
+              Your Introduction
+                </label>
+              <span className="text-xs text-slate-500">
+                {values.message.length}/300
+              </span>
+            </div>
+
+            <textarea
+              id="message"
+              name="introduction"
+              value={values.message}
+              onChange={(e) => updateField("message", e.target.value)}
+              onBlur={() => markTouched("message")}
+              required
+              minLength={10}
+              maxLength={300}
+              rows={5}
+              aria-invalid={Boolean((touched.message || submitted) && currentErrors.message)}
+              aria-describedby={currentErrors.message && (touched.message || submitted) ? "message-error" : undefined}
+              placeholder="Please give a brief introduction."
+              className={`${fieldClass("message")} resize-y`}
+            />
+            {fieldError("message")}
+          </div>
+
+          <div className="sm:col-span-2">
+            <div className="flex items-center justify-between gap-3">
+              <label htmlFor="message" className="text-sm font-medium text-[#172b42]">
                 How can we help? *
               </label>
               <span className="text-xs text-slate-500">
@@ -457,7 +485,6 @@ export default function ContactForm() {
           </div>
         </div>
 
-        {/* Honeypot: keep this field empty */}
         <div
           aria-hidden="true"
           className="absolute -left-[9999px] h-px w-px overflow-hidden"
