@@ -28,7 +28,7 @@ export default function ServicePageTemplate({
       <section className="bg-[#172b42] text-white">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
           <Link
-            href="/#services"
+            href="/services"
             className="inline-flex items-center gap-2 text-sm text-slate-300 transition-colors hover:text-white"
           >
             <ArrowLeft size={16} />
@@ -48,7 +48,7 @@ export default function ServicePageTemplate({
           </p>
 
           <Link
-            href="/#contact"
+            href="/contact"
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#e3c797] px-5 py-3.5 text-sm font-semibold text-[#172b42] transition-colors hover:bg-[#f0d9ae]"
           >
             Discuss Your Requirement

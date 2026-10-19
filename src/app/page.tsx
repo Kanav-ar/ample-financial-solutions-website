@@ -87,8 +87,8 @@ export default function HomePage() {
         <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full border border-white/10" />
         <div className="absolute -right-12 -top-12 h-56 w-56 rounded-full border border-white/10" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-14 px-5 py-20 sm:py-24 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8 lg:py-28">
-          <div>
+        <div className="relative mx-auto grid max-w-7xl gap-14 px-5 py-20 sm:py-21 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:py-21">
+          <div className="lg:pt-8">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e3c797]">
               Finance · Insolvency · Taxation
             </p>
@@ -274,27 +274,73 @@ export default function HomePage() {
       </section>
 
       <section id="contact" className="scroll-mt-32 bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
-          <div className="rounded-2xl bg-[#172b42] px-6 py-10 text-white sm:px-10 sm:py-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e3c797]">
-              Contact Us
-            </p>
+       <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
+  <div className="relative overflow-hidden rounded-3xl bg-[#172b42] px-6 py-10 text-white shadow-xl sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+    {/* Decorative background accent */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border border-[#e3c797]/15 sm:h-96 sm:w-96"
+    />
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -right-10 -top-14 h-56 w-56 rounded-full border border-[#e3c797]/10 sm:h-80 sm:w-80"
+    />
 
-            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-              Let's discuss your business requirement.
-            </h2>
-
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300">
-              The enquiry form and verified contact details will be connected in
-              the next development milestone.
-            </p>
-
-            <p className="mt-5 text-xs text-slate-400">
-              Development preview — do not publish until the actual contact
-              details and working enquiry flow have been added.
-            </p>
-          </div>
+    <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
+      <div className="max-w-2xl">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#e3c797]/30 bg-white/5 px-3 py-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#e3c797]" />
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#e3c797]">
+            Let’s Start a Conversation
+          </span>
         </div>
+
+        <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+          Let’s discuss your
+          <span className="text-[#e3c797]"> business requirements.</span>
+        </h2>
+
+        <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
+          Looking for guidance on banking and credit, IBC and NCLT matters,
+          capital markets, taxation, or regulatory compliance? Share your
+          requirements with us so we can understand your needs and discuss the
+          appropriate next steps.
+        </p>
+
+        <div className="mt-7 flex flex-wrap gap-2">
+          {[
+            "Banking & Credit",
+            "IBC & NCLT",
+            "Capital Markets",
+            "Taxation & Compliance",
+          ].map((service) => (
+            <span
+              key={service}
+              className="rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-slate-200"
+            >
+              {service}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative flex flex-col items-start gap-4 md:items-start md:pl-6">
+        <Link
+          href="/contact"
+          className="inline-flex items-center justify-center gap-3 rounded-xl bg-[#e3c797] px-6 py-4 text-sm font-semibold text-[#172b42] transition-all duration-200 hover:bg-[#f0dcb5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e3c797] focus-visible:ring-offset-2 focus-visible:ring-offset-[#172b42]"
+        >
+          Discuss Your Requirement
+          <ArrowUpRight size={18} />
+        </Link>
+
+        <p className="max-w-xs text-xs leading-6 text-slate-400">
+          Tell us a little about your organisation or enquiry through our
+          contact form.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
       </section>
     </main>
   );
