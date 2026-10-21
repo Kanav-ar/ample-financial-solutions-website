@@ -100,7 +100,7 @@ const services = [
     href: "/services/capital-markets",
     title: "Fund Raising through IPO",
     description:
-      "Coordination with registered merchant bankers to determine the pricing of share & quantum of the issue in consultaion with the promoters of the company.",
+      "To understand the funds requirement in consulation with the promotors based on the financials of the company. And coordination with merchant bankers to determine the pricing of share & quantum of IPO.",
     icon: TrendingUp,
   },
   {
