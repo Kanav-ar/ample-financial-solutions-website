@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "Business & Financial Advisory Services",
 
@@ -39,7 +38,6 @@ export const metadata: Metadata = {
       "and taxation advisory through Ample Financial Solutions.",
   },
 };
-
 
 const areas = [
   {
@@ -125,15 +123,11 @@ export default function HomePage() {
             </p>
 
             <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Financial Decisions in Business - Connect with Right
-              Professionals{" "}
+              Financial Business Decisions - Connect with Right Professionals
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
-              A single point of enquiry for businesses seeking support with
-              bank-finance proposals, insolvency and restructuring,
-              capital-market fundraising, and taxation. Enquiries may be
-              directed to relevant independent professionals, where appropriate.
+              A single point enquiry seeking support to raise funds from banks, market by IPO,  restructuring, facing insolvency issues under IBC. Enquiries will be addressed by experts for solutions till completion.
             </p>
 
             <div className="mt-8 lg:mt-16 flex flex-wrap gap-4">

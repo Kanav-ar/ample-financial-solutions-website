@@ -113,7 +113,7 @@ export default function AboutPage() {
             </p>
 
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#172b42] sm:text-4xl">
-              Understand the requirement. Identify the next step.
+              Understand your requirement
             </h2>
           </div>
 
@@ -221,7 +221,8 @@ export default function AboutPage() {
                 <p>
                   CA Naresh Kumar Munjal is the founder of Ample Financial
                   Solutions. He brings 45 years of experience in corporate
-                  finance, including work relating to IPOs and taxation.
+                  finance, including work relating to IPOs, banking as CFO and
+                  taxation.
                 </p>
 
                 <p>
