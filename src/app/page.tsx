@@ -92,7 +92,7 @@ const services = [
     href: "/services/ibc-nclt",
     title: "IBC & NCLT Consultancy",
     description:
-      "Enquiries concerning insolvency, restructuring and resolution may be directed to appropriately qualified legal and insolvency professionals, subject to applicable eligibility and separate engagement.",
+      "Identify the issues pertaining to insolvency. Addressing the issues by preparation of proposals of restructering and/or with resolution plans acceptable to banks & avoid insolvency under IBC. Replying to legal notices & attending to petitions before NCLT in consultaion with legal experts wherever required.",
     icon: Scale,
   },
   {
@@ -241,7 +241,7 @@ export default function HomePage() {
                   {service.description}
                 </p>
 
-                <Link
+                {/* <Link
                   href={service.href}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#8d6935]"
                 >
@@ -250,7 +250,7 @@ export default function HomePage() {
                     size={16}
                     className="transition-transform group-hover:translate-x-0.5"
                   />
-                </Link>
+                </Link> */}
               </article>
             );
           })}
