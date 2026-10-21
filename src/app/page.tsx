@@ -108,7 +108,7 @@ const services = [
     href: "/services/taxation",
     title: "Direct & Indirect Taxation",
     description:
-      "Taxation enquiries may be directed to the appropriate CA firm or qualified professional for direct and indirect tax matters, subject to the relevant location and engagement arrangements.",
+      "Attending & addressing online to income tax & GST notices. Online submission & offline representation before the authorities as requried vide notices.",
     icon: Calculator,
   },
 ];
