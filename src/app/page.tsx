@@ -3,11 +3,14 @@ import {
   ArrowRight,
   ArrowUpRight,
   Calculator,
+  ChartCandlestick,
   CheckCircle2,
   CheckLine,
+  ClipboardPenLine,
   Landmark,
   Scale,
   TrendingUp,
+  UserRoundPen,
 } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -41,6 +44,12 @@ export const metadata: Metadata = {
 
 const areas = [
   {
+    title: "Virtual CFO",
+    description:
+      "Assist promoters & CEO  both online and offline in overall financial management",
+    icon: UserRoundPen
+    },
+  {
     title: "Banking",
     description:
       "Credit facilities and loans at best rates supported by bankers",
@@ -49,21 +58,21 @@ const areas = [
   {
     title: "Listing on SME Exchange",
     description: "Min IPO Exp managed by leading merchant bankers",
-    icon: Scale,
+    icon: ChartCandlestick,
   },
   {
     title: "IBC Consultancy",
     description: "By leading experienced IPs & Ex-NCLT Members",
-    icon: TrendingUp,
+    icon: Scale,
   },
   {
     title: "Taxation",
     description: "Direct & Indirect by leading CA firms",
-    icon: Calculator,
+    icon: ClipboardPenLine,
   },
   {
     title: "Compliance",
-    description: "Company Law matters including SEBI, IBC & Taxation",
+    description: "Company Law matters including SEBI, IBC & Taxation including GST",
     icon: CheckLine,
   },
 ];
@@ -127,7 +136,10 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
-              A single point enquiry seeking support to raise funds from banks, market by IPO,  restructuring, facing insolvency issues under IBC. Enquiries will be addressed by experts for solutions till completion.
+              A single point enquiry seeking support to raise funds from banks,
+              market by IPO, restructuring, facing insolvency issues under IBC.
+              Enquiries will be addressed by experts for solutions till
+              completion.
             </p>
 
             <div className="mt-8 lg:mt-16 flex flex-wrap gap-4">
@@ -151,7 +163,7 @@ export default function HomePage() {
 
           <div className="rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm sm:p-8">
             <p className="text-lg font-bold uppercase tracking-[0.2em] text-[#e3c797]">
-              Our expertise
+              Our expertise as CFO & RP
             </p>
 
             <div className="mt-5 divide-y divide-white/10">
@@ -196,7 +208,7 @@ export default function HomePage() {
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#172b42] sm:text-4xl">
-            Professional support for your business requirements.{" "}
+            Professional Support{" "}
           </h2>
 
           <p className="mt-5 text-base leading-8 text-slate-600">
