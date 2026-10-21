@@ -185,16 +185,18 @@ export default function AboutPage() {
 
           <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             <div className="mx-auto w-full max-w-md">
-                <div className="mx-auto w-full max-w-md">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
-                    <Image
-                      src="/images/founderNM-3.jpeg"
-                      alt="Founder of Ample Financial Solutions"
-                      fill
-                      priority
-                      sizes="(max-width: 768px) 100vw, 448px"
-                      className="object-cover object-center"
-                    />
+              <div className="mx-auto w-full max-w-md">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+                  <Image
+                    src="/images/founderNMs-2.jpeg"
+                    alt="Founder of Ample Financial Solutions"
+                    fill
+                    unoptimized
+                    preload
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 448px"
+                    className="object-cover object-center"
+                  />
                 </div>
               </div>
             </div>
