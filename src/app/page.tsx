@@ -208,12 +208,12 @@ export default function HomePage() {
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#172b42] sm:text-4xl">
-            Professional Support{" "}
+            Identification of Issues
           </h2>
 
           <p className="mt-5 text-base leading-8 text-slate-600">
-            Explore the areas in which you may need guidance and identify the
-            appropriate professional support for your requirements.
+            Explore the issues in which you may need guidance and depute the
+            appropriate professional support to meet your requirements.
           </p>
         </div>
 
