@@ -67,7 +67,7 @@ const areas = [
 export default function ServicesPage() {
   return (
     <main>
-      {/* Hero Section */}
+    
       <section className="bg-[#172b42] text-white">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#e3c797]">
@@ -86,7 +86,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Service Cards */}
       <section className="mx-auto max-w-7xl px-5 py-16 sm:py-20 lg:px-8">
         <div className="mb-10 max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a47b40]">

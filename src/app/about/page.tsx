@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -11,7 +12,6 @@ import {
   Scale,
   TrendingUp,
 } from "lucide-react";
-
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -40,7 +40,6 @@ export const metadata: Metadata = {
       "supporting business and financial advisory enquiries.",
   },
 };
-
 
 const principles = [
   {
@@ -122,16 +121,15 @@ export default function AboutPage() {
             <p>
               Businesses can encounter requirements involving bank finance,
               insolvency and restructuring, capital markets, and taxation.
-              Understanding the relevant service area is a useful first step
-              in finding appropriate professional assistance.
+              Understanding the relevant service area is a useful first step in
+              finding appropriate professional assistance.
             </p>
 
             <p>
               Ample Financial Solutions is intended to serve as an enquiry and
-              facilitation platform. Depending on the nature of the
-              requirement, an enquiry may be directed to the relevant
-              professional or firm for assessment and a separate engagement,
-              where appropriate.
+              facilitation platform. Depending on the nature of the requirement,
+              an enquiry may be directed to the relevant professional or firm
+              for assessment and a separate engagement, where appropriate.
             </p>
 
             <p>
@@ -180,27 +178,24 @@ export default function AboutPage() {
             </h2>
 
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Leadership grounded in professional qualifications and
-              experience across corporate finance and related fields.
+              Leadership grounded in professional qualifications and experience
+              across corporate finance and related fields.
             </p>
           </div>
 
           <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-            
             <div className="mx-auto w-full max-w-md">
-              <div className="flex aspect-[4/5] w-full flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-300 bg-white px-8 text-center">
-                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#f3eee4] text-[#8d6935]">
-                  <UserRound size={38} strokeWidth={1.4} />
-                </span>
-
-                <p className="mt-6 text-lg font-semibold text-[#172b42]">
-                  Founder Photograph
-                </p>
-
-                <p className="mt-2 max-w-xs text-sm leading-6 text-slate-500">
-                  Add an approved professional photograph of CA Naresh Kumar
-                  Munjal here.
-                </p>
+                <div className="mx-auto w-full max-w-md">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+                    <Image
+                      src="/images/founder.jpeg"
+                      alt="Founder of Ample Financial Solutions"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, 448px"
+                      className="object-cover object-center"
+                    />
+                </div>
               </div>
             </div>
 
@@ -228,10 +223,10 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  His professional qualifications include Chartered
-                  Accountancy and Company Secretary, and he is an Insolvency
-                  Professional registered with the Insolvency and Bankruptcy
-                  Board of India (IBBI).
+                  His professional qualifications include Chartered Accountancy
+                  and Company Secretary, and he is an Insolvency Professional
+                  registered with the Insolvency and Bankruptcy Board of India
+                  (IBBI).
                 </p>
 
                 <p>
@@ -266,8 +261,8 @@ export default function AboutPage() {
 
           <p className="mt-5 text-base leading-8 text-slate-600">
             Ample Financial Solutions is supported by a network of highly
-            qualified and experienced professionals. Depending on the nature
-            of a requirement, relevant expertise may be identified to help
+            qualified and experienced professionals. Depending on the nature of
+            a requirement, relevant expertise may be identified to help
             businesses explore their next steps.
           </p>
         </div>
@@ -304,7 +299,6 @@ export default function AboutPage() {
         </p>
       </section>
 
-    
       <section className="border-y border-slate-200 bg-[#f0eee8]">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:py-16 md:grid-cols-2 md:items-center lg:px-8">
           <div>
@@ -329,8 +323,8 @@ export default function AboutPage() {
             </h3>
 
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              Tell us about your broad requirement and the service area you
-              are exploring.
+              Tell us about your broad requirement and the service area you are
+              exploring.
             </p>
 
             <Link
