@@ -188,7 +188,7 @@ export default function AboutPage() {
                 <div className="mx-auto w-full max-w-md">
                   <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
                     <Image
-                      src="/images/founder.jpeg"
+                      src="/images/founderNM-3.jpeg"
                       alt="Founder of Ample Financial Solutions"
                       fill
                       priority
