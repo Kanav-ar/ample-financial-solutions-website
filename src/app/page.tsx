@@ -81,9 +81,9 @@ const services = [
   {
     number: "01",
     href: "/services/bank-finance",
-    title: "Credit & Banking Advisory",
+    title: "Credit & Banking Services",
     description:
-      "Support with financial documentation, CMA data and bank-finance proposals may be coordinated through independent banking advisors. All credit decisions rest solely with the relevant bank.",
+      "Preparation and guidance of CMA data and bank finance proposals. Credit decisions by relevent bank in consulation with the client.",
     icon: Landmark,
   },
   {
