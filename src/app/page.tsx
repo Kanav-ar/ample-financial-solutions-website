@@ -47,8 +47,8 @@ const areas = [
     title: "Virtual CFO",
     description:
       "Assist promoters & CEO  both online and offline in overall financial management",
-    icon: UserRoundPen
-    },
+    icon: UserRoundPen,
+  },
   {
     title: "Banking",
     description:
@@ -72,7 +72,8 @@ const areas = [
   },
   {
     title: "Compliance",
-    description: "Company Law matters including SEBI, IBC & Taxation including GST",
+    description:
+      "Company Law matters including SEBI, IBC & Taxation including GST",
     icon: CheckLine,
   },
 ];
@@ -97,9 +98,9 @@ const services = [
   {
     number: "03",
     href: "/services/capital-markets",
-    title: "Capital Markets & Fundraising",
+    title: "Fund Raising through IPO",
     description:
-      "Enquiries about IPOs, listing and capital-market fundraising may be referred to appropriately registered merchant bankers, where applicable. The relevant provider determines the scope of its engagement.",
+      "Coordination with registered merchant bankers to determine the pricing of share & quantum of the issue in consultaion with the promoters of the company.",
     icon: TrendingUp,
   },
   {
@@ -229,10 +230,6 @@ export default function HomePage() {
                 <div className="flex items-start justify-between">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f3eee4] text-[#8d6935]">
                     <Icon size={23} />
-                  </span>
-
-                  <span className="text-sm font-medium text-slate-400">
-                    {service.number}
                   </span>
                 </div>
 
