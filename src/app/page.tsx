@@ -56,8 +56,8 @@ const areas = [
     icon: Landmark,
   },
   {
-    title: "Listing on SME Exchange",
-    description: "Min IPO Exp managed by leading merchant bankers",
+    title: "IPO & Listing on SME Exchange",
+    description: "IPO managed by leading Merchant Bankers at minimum expense",
     icon: ChartCandlestick,
   },
   {
@@ -84,7 +84,7 @@ const services = [
     href: "/services/bank-finance",
     title: "Credit & Banking Services",
     description:
-      "Preparation and guidance of CMA data and bank finance proposals. Credit decisions by relevent bank in consulation with the client.",
+      "Preparation of CMA data and Bank finance proposals. Quantum of credit decisions by concerned Bank in consultation with client.",
     icon: Landmark,
   },
   {
@@ -143,10 +143,10 @@ export default function HomePage() {
               completion.
             </p>
 
-            <div className="mt-8 lg:mt-16 flex flex-wrap gap-4">
+            <div className="mt-8 md:mt-12 lg:mt-16 flex flex-wrap gap-4">
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#e3c797] px-5 py-3.5 text-sm font-semibold text-[#172b42] transition-colors hover:bg-[#f0d9ae]"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#e3c797] px-5 py-3.5 text-sm md:text-md lg:text-lg font-semibold text-[#172b42] transition-colors hover:bg-[#f0d9ae]"
               >
                 Explore Our Services
                 <ArrowRight size={17} />
@@ -154,7 +154,7 @@ export default function HomePage() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3.5 text-sm font-medium transition-colors hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3.5 text-sm md:text-md lg:text-lg font-medium transition-colors hover:bg-white/10"
               >
                 Discuss Your Requirement
                 <ArrowUpRight size={17} />
@@ -181,7 +181,9 @@ export default function HomePage() {
                     </span>
 
                     <div className="min-w-0">
-                      <p className="text-xs text-slate-400">{service.title}</p>
+                      <p className="text-md font-semibold text-slate-400">
+                        {service.title}
+                      </p>
                       <h2 className="mt-1 text-sm font-medium leading-6 sm:text-base">
                         {service.description}
                       </h2>
@@ -213,8 +215,9 @@ export default function HomePage() {
           </h2>
 
           <p className="mt-5 text-base leading-8 text-slate-600">
-            Explore the issues in which you may need guidance and depute the
-            appropriate professional support to meet your requirements.
+            Explore the issues in which you need our consultancy. We will depute
+            appropriate professional to meet your requirements till we resolve
+            the issues.
           </p>
         </div>
 
@@ -268,14 +271,14 @@ export default function HomePage() {
             </p>
 
             <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-[#172b42] sm:text-4xl">
-              Bringing relevant professional expertise closer to businesses.
+              Bringing Professional Expertise at Business Premises{" "}
             </h2>
 
             <p className="mt-5 text-base leading-8 text-slate-600">
               Ample Financial Solutions is designed to help businesses identify
-              the relevant service area and enquire about specialist support.
+              the relevant service area.
               Depending on the requirement, the appropriate professional or firm
-              can clarify its scope of work, eligibility, terms and engagement
+              will clarify scope of work, eligibility, terms and engagement
               arrangements.
             </p>
           </div>
@@ -286,7 +289,7 @@ export default function HomePage() {
             </h3>
 
             <p className="mt-2 text-sm leading-7 text-slate-600">
-              Tell us what your business needs, and your enquiry can be directed
+              Tell us what your business needs, and your enquiry will be directed
               to the appropriate professional, subject to their role and
               availability.
             </p>
