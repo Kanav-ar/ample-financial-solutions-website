@@ -285,7 +285,7 @@ export default function HomePage() {
 
           <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
             <h3 className="text-lg font-semibold text-[#172b42]">
-              A clear starting point
+              Starting point
             </h3>
 
             <p className="mt-2 text-sm leading-7 text-slate-600">
