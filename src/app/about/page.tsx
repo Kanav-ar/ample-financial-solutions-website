@@ -302,7 +302,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="border-y border-slate-200 bg-[#f0eee8]">
+      {/* <section className="border-y border-slate-200 bg-[#f0eee8]">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:py-16 md:grid-cols-2 md:items-center lg:px-8">
           <div>
             <div className="flex items-center gap-3">
@@ -339,7 +339,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }

@@ -7,8 +7,8 @@ import { ArrowUpRight, Landmark } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Our Services", href: "/services" },
+  { label: "Management Team", href: "/about" },
 ];
 
 export default function Navbar() {
